@@ -423,13 +423,13 @@ class _HomePageState extends State<HomePage> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     stops: [
-                      0.001,
-                      0.6,
-                      0.9,
+                      0.1,
+                      0.5,
+                      0.7,
                     ],
                     colors: [
+                      Colors.transparent,
                       Colors.black.withOpacity(0.3),
-                      Colors.black.withOpacity(0.5),
                       Colors.black,
                     ],
                   ),
@@ -485,33 +485,50 @@ class _HomePageState extends State<HomePage> {
                     //     ],
                     //   ),
                     // ),
-                    CarouselSlider.builder(
-                      itemCount: listMovie.length,
-                      itemBuilder: (BuildContext context, int itemIndex,
-                          int pageViewIndex) {
-                        return contentPoster(itemIndex);
-                      },
-                      options: CarouselOptions(
-                        height: 320,
-                        aspectRatio: 16 / 9,
-                        viewportFraction: 0.5,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        // enlargeCenterPage: true,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentPoster = index;
-                            _backgroundController.animateToPage(
-                                reversedListMovie.length - (index + 1));
-                          });
-                          print(currentPoster);
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          stops: [
+                            0.001,
+                            0.5,
+                          ],
+                          colors: [
+                            Colors.transparent,
+                            Colors.black,
+                          ],
+                        ),
+                      ),
+                      child: CarouselSlider.builder(
+                        itemCount: listMovie.length,
+                        itemBuilder: (BuildContext context, int itemIndex,
+                            int pageViewIndex) {
+                          return contentPoster(itemIndex);
                         },
-                        scrollDirection: Axis.horizontal,
+                        options: CarouselOptions(
+                          height: 320,
+                          aspectRatio: 16 / 9,
+                          viewportFraction: 0.5,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: false,
+                          autoPlayInterval: Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          // enlargeCenterPage: true,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              currentPoster = index;
+                              _backgroundController.animateToPage(
+                                  reversedListMovie.length - (index + 1));
+                            });
+                            print(currentPoster);
+                          },
+                          scrollDirection: Axis.horizontal,
+                        ),
                       ),
                     ),
                   ],
